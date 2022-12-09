@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+        $(document).ready(function(){
+        // Add smooth scrolling to all 
+        $("a").on('click', function(event) {
+
+            // Make sure this.hash has a value before overriding default behavior
+            if (this.hash !== "") {
+            // Prevent default anchor click behavior
+            event.preventDefault();
+
+            // Store hash
+            var hash = this.hash;
+
+            // Using jQuery's animate() method to add smooth page scroll
+            // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+            $('html, body').animate({
+                scrollTop: $(hash).offset().top
+            }, 800, function(){
+        
+                // Add hash (#) to URL when done scrolling (default click behavior)
+                window.location.hash = hash;
+            });
+            } // End if
+        });
+        });
+        </script>
+        <style>
+       html, body, #map {
+            width: auto;
+            height: 680px;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+		<style>
+            #section1 {
+            height: 700px;
+            background-color: rgb(25, 45, 53);
+            text-align: center;
+            }
+
+            .row.content {
+                height: 680px;
+            }
+            
+            .sidenav {
+            background-color: rgb(25, 45, 53);
+            height: 100%;
+            }
+                        
+            .aside {
+            background-color: rgb(25, 45, 53);
+            height: 100%;
+            }
+
+            footer {
+            background-color: #333333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            }
+            
+            @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 20px;
+            }
+            .row.content {
+                height: auto;
+                background-color: #d3d3d3;
+            } 
+            h2 {
+                color: white;
+            }
+            }
+    </style>
+        <title>PETA PENENTUAN LOKASI TPA SAMPAH DI KAB. BATANG, JAWA TENGAH</title>
+    </head>
+    <body>
+        <div class="main" id="section1">
+            <br>
+            <h2 style="color: white;"><b>ANALISIS PENENTUAN TPA DI KABUPATEN BATANG</b></h2>
+            <br>
+            <img src="TPA.jpeg" style="display: block; margin-left: auto; margin-right: auto;" width="500" height="400">
+            <br>
+            <p style="color: white; width: 1000px; padding-left: 20%; ">Tempat pembuangan akhir (TPA) atau landfill adalah tempat untuk membuang sampah dan bahan limbah.
+                 Tempat ini dirancang untuk meminimalkan dampak sampah terhadap kesehatan manusia dan lingkungan maka dari itu diperlukan analisis guna
+                memnentukan lokasi TPA yang tercocok.</p>
+            <a style="color: rgba(248, 252, 6, 0.918); font-size:30px" href="#map"><u>Klik Untuk Melihat Peta</u></a> <br>
+            <a style="color: rgba(248, 252, 6, 0.918); font-size:30px" href="https://forms.gle/qZdcJL9Aj9gML9bb6"><u>Klik Untuk Memberikan Penilaian</u></a>
+            </div>
+
+        <div class="container-fluid">
+            <div class="row content">
+              <div class="col-sm-3 sidenav">
+                <h4 style="color: white; text-align: center; font-family:'Times new Roman';"><b>PETA PENENTUAN LOKASI TPA SAMPAH DI KAB. BATANG, JAWA TENGAH</b></h4>
+				<hr>
+                <img src="pngwing.com (1).png" style="display: block; margin-left: auto; margin-right: auto;" width="100" height="100">
+				<hr>
+                <h4 style="color: white; text-align: center; font-family:'Times new Roman'; "><b>Dibuat Oleh:</b></h4>
+                <h5 style="color: white; text-align: center; font-family:'calibri'; font-size:17px;">Jaka Putra Sakti<br>20/464424/SV/18743</h5>
+                <hr>
+                <h4 style="color: white; text-align: center; font-family:'Times new Roman'; "><b>Dosen Pengampu:</b></h4>
+                <h5 style="color: white; text-align: center; font-family:'calibri'; font-size:17px">Erlyna Nour Arrofiqoh, S.T, M.Eng,</h5>
+                <hr>
+                <img src="Lambang UGM.png" style="display: block; margin-left: auto; margin-right: auto;" width="100" height="100">
+                <h4 style="color: white; text-align: center; font-family:'Times new Roman';"><b>Teknologi Survei Dan Pemetaan Dasar<br>Universitas Gadjah Mada<br>2022</b></h4>
+                <div class="input-group">
+                </div>
+              </div>
+		<div class="col-sm-9">
+		
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/AdministrasiDesaKabBatang_1.js"></script>
+        <script src="data/LokasiPotensiTPA_2.js"></script>
+        <script src="data/PotensiTPA2ha_3.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        map.createPane('pane_GoogleSatelite_0');
+        map.getPane('pane_GoogleSatelite_0').style.zIndex = 400;
+        var layer_GoogleSatelite_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatelite_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
+        });
+        layer_GoogleSatelite_0;
+        map.addLayer(layer_GoogleSatelite_0);
+        function pop_AdministrasiDesaKabBatang_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>Desa :</strong>' + (feature.properties['NAMOBJ'] !== null ? autolinker.link(feature.properties['NAMOBJ'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Kecamatan :</strong>' + (feature.properties['WADMKC'] !== null ? autolinker.link(feature.properties['WADMKC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Kab/Kota :</strong>' + (feature.properties['WADMKK'] !== null ? autolinker.link(feature.properties['WADMKK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Provinsi :</strong>' + (feature.properties['WADMPR'] !== null ? autolinker.link(feature.properties['WADMPR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_AdministrasiDesaKabBatang_1_0() {
+            return {
+                pane: 'pane_AdministrasiDesaKabBatang_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(222,179,159,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_AdministrasiDesaKabBatang_1');
+        map.getPane('pane_AdministrasiDesaKabBatang_1').style.zIndex = 401;
+        map.getPane('pane_AdministrasiDesaKabBatang_1').style['mix-blend-mode'] = 'normal';
+        var layer_AdministrasiDesaKabBatang_1 = new L.geoJson(json_AdministrasiDesaKabBatang_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_AdministrasiDesaKabBatang_1',
+            layerName: 'layer_AdministrasiDesaKabBatang_1',
+            pane: 'pane_AdministrasiDesaKabBatang_1',
+            onEachFeature: pop_AdministrasiDesaKabBatang_1,
+            style: style_AdministrasiDesaKabBatang_1_0,
+        });
+        bounds_group.addLayer(layer_AdministrasiDesaKabBatang_1);
+        map.addLayer(layer_AdministrasiDesaKabBatang_1);
+        function pop_LokasiPotensiTPA_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FID_clip_h'] !== null ? autolinker.link(feature.properties['FID_clip_h'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Id'] !== null ? autolinker.link(feature.properties['Id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Skor curah hujan :</strong>' + (feature.properties['skor_hjn'] !== null ? autolinker.link(feature.properties['skor_hjn'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Skor kemiringan lereng :</strong>' + (feature.properties['Skor_lrg'] !== null ? autolinker.link(feature.properties['Skor_lrg'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Skor geologi :</strong>' + (feature.properties['skor_geo'] !== null ? autolinker.link(feature.properties['skor_geo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Total skor :</strong>' + (feature.properties['skor_total'] !== null ? autolinker.link(feature.properties['skor_total'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Keterangan :</strong>' + (feature.properties['Ktrgn_klas'] !== null ? autolinker.link(feature.properties['Ktrgn_klas'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Luas :</strong>' + (feature.properties['luas'] !== null ? autolinker.link(feature.properties['luas'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_LokasiPotensiTPA_2_0(feature) {
+            switch(String(feature.properties['Ktrgn_klas'])) {
+                case 'Kurang sesuai':
+                    return {
+                pane: 'pane_LokasiPotensiTPA_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(226,73,56,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Sesuai':
+                    return {
+                pane: 'pane_LokasiPotensiTPA_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(109,179,81,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_LokasiPotensiTPA_2');
+        map.getPane('pane_LokasiPotensiTPA_2').style.zIndex = 402;
+        map.getPane('pane_LokasiPotensiTPA_2').style['mix-blend-mode'] = 'normal';
+        var layer_LokasiPotensiTPA_2 = new L.geoJson(json_LokasiPotensiTPA_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_LokasiPotensiTPA_2',
+            layerName: 'layer_LokasiPotensiTPA_2',
+            pane: 'pane_LokasiPotensiTPA_2',
+            onEachFeature: pop_LokasiPotensiTPA_2,
+            style: style_LokasiPotensiTPA_2_0,
+        });
+        bounds_group.addLayer(layer_LokasiPotensiTPA_2);
+        map.addLayer(layer_LokasiPotensiTPA_2);
+        function pop_PotensiTPA2ha_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FID_clip_h'] !== null ? autolinker.link(feature.properties['FID_clip_h'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Id'] !== null ? autolinker.link(feature.properties['Id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Keterangan kelas :</strong>' + (feature.properties['Ktrgn_klas'] !== null ? autolinker.link(feature.properties['Ktrgn_klas'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Luas :</strong>' + (feature.properties['luas'] !== null ? autolinker.link(feature.properties['luas'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_PotensiTPA2ha_3_0() {
+            return {
+                pane: 'pane_PotensiTPA2ha_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(246,229,44,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_PotensiTPA2ha_3');
+        map.getPane('pane_PotensiTPA2ha_3').style.zIndex = 403;
+        map.getPane('pane_PotensiTPA2ha_3').style['mix-blend-mode'] = 'normal';
+        var layer_PotensiTPA2ha_3 = new L.geoJson(json_PotensiTPA2ha_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_PotensiTPA2ha_3',
+            layerName: 'layer_PotensiTPA2ha_3',
+            pane: 'pane_PotensiTPA2ha_3',
+            onEachFeature: pop_PotensiTPA2ha_3,
+            style: style_PotensiTPA2ha_3_0,
+        });
+        bounds_group.addLayer(layer_PotensiTPA2ha_3);
+        map.addLayer(layer_PotensiTPA2ha_3);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/PotensiTPA2ha_3.png" /> Potensi TPA > 2 ha': layer_PotensiTPA2ha_3,'Lokasi Potensi TPA<br /><table><tr><td style="text-align: center;"><img src="legend/LokasiPotensiTPA_2_CukupSesuai0.png" /></td><td>Cukup Sesuai</td></tr><tr><td style="text-align: center;"><img src="legend/LokasiPotensiTPA_2_Sesuai1.png" /></td><td>Sesuai</td></tr></table>': layer_LokasiPotensiTPA_2,'<img src="legend/AdministrasiDesaKabBatang_1.png" /> Administrasi Desa Kab. Batang': layer_AdministrasiDesaKabBatang_1,"Google Satelite": layer_GoogleSatelite_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_AdministrasiDesaKabBatang_1.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['NAMOBJ'] !== null?String('<div style="color: #000000; font-size: 6pt; font-weight: bold; font-family: \'News706 BT\', sans-serif;">' + layer.feature.properties['NAMOBJ']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_AdministrasiDesaKabBatang_1'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        resetLabels([layer_AdministrasiDesaKabBatang_1]);
+        map.on("zoomend", function(){
+            resetLabels([layer_AdministrasiDesaKabBatang_1]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_AdministrasiDesaKabBatang_1]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_AdministrasiDesaKabBatang_1]);
+        });
+        </script>
+    </body>
+</html>
